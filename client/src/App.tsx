@@ -32,6 +32,7 @@ export default function App() {
   //GET request for all data
   useEffect(() => {
     console.log('🍎inside useEffect');
+    console.log('🍎inside useEffect');
     const getData = async () => {
       try {
         console.log('inside try🍊');
@@ -39,9 +40,11 @@ export default function App() {
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error('there was an error fetching all data');
+          throw new Error('there was an error fetching all data');
         }
         const fetchedData = await response.json();
         setAllData(fetchedData);
+        console.log('✅', fetchedData);
         console.log('✅', fetchedData);
       } catch (error) {
         throw new Error(`Could not fetch data ${error}`);
@@ -51,11 +54,18 @@ export default function App() {
   }, []);
 
   console.log('🍎allData', allData);
+  console.log('🍎allData', allData);
   //POST request for users
   useEffect(() => {
     const postData = async () => {
       const url = 'http://localhost:4000/'; //will update later
+      const url = 'http://localhost:4000/'; //will update later
       const newPost = {
+        name: '',
+        country: '',
+        category: '',
+        text: '',
+        image: '',
         name: '',
         country: '',
         category: '',
@@ -65,13 +75,17 @@ export default function App() {
       try {
         const postResponse = await fetch(url, {
           method: 'POST',
+          method: 'POST',
           headers: {
+            Accept: 'application/JSON',
+            'content-type': 'application/JSON',
             Accept: 'application/JSON',
             'content-type': 'application/JSON',
           },
           body: JSON.stringify(newPost),
         });
         if (!postResponse.ok) {
+          throw new Error('there was a problem adding new post to database');
           throw new Error('there was a problem adding new post to database');
         }
         const postedData = await postResponse.json();
