@@ -28,7 +28,7 @@ export default function App() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const url = 'http://localhost:3000'; //will update later
+        const url = 'http://localhost:3000/countries'; //will update later
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error('there was an error fetching all data');
