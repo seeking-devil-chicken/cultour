@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { JSX } from "react";
+import Posts from "../components/Posts";
 
 interface Data {
   id: number;
@@ -79,6 +80,7 @@ export default function App() {
   return (
     <>
       <h1>Hello World!</h1>
+      {allData && <Posts countries={allData} />}
     </>
   );
 }
