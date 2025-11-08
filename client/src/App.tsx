@@ -56,45 +56,45 @@ export default function App() {
   console.log('🍎allData', allData);
   console.log('🍎allData', allData);
   //POST request for users
-  useEffect(() => {
-    const postData = async () => {
-      const url = 'http://localhost:4000/'; //will update later
-      const url = 'http://localhost:4000/'; //will update later
-      const newPost = {
-        name: '',
-        country: '',
-        category: '',
-        text: '',
-        image: '',
-        name: '',
-        country: '',
-        category: '',
-        text: '',
-        image: '',
-      };
-      try {
-        const postResponse = await fetch(url, {
-          method: 'POST',
-          method: 'POST',
-          headers: {
-            Accept: 'application/JSON',
-            'content-type': 'application/JSON',
-            Accept: 'application/JSON',
-            'content-type': 'application/JSON',
-          },
-          body: JSON.stringify(newPost),
-        });
-        if (!postResponse.ok) {
-          throw new Error('there was a problem adding new post to database');
-          throw new Error('there was a problem adding new post to database');
-        }
-        const postedData = await postResponse.json();
-      } catch (error) {
-        throw new Error(`error during post request, ${error}`);
-      }
-    };
-    // postData();
-  }, []);
+  // useEffect(() => {
+  //   const postData = async () => {
+  //     const url = 'http://localhost:4000/'; //will update later
+  //     const url = 'http://localhost:4000/'; //will update later
+  //     const newPost = {
+  //       name: '',
+  //       country: '',
+  //       category: '',
+  //       text: '',
+  //       image: '',
+  //       name: '',
+  //       country: '',
+  //       category: '',
+  //       text: '',
+  //       image: '',
+  //     };
+  //     try {
+  //       const postResponse = await fetch(url, {
+  //         method: 'POST',
+  //         method: 'POST',
+  //         headers: {
+  //           Accept: 'application/JSON',
+  //           'content-type': 'application/JSON',
+  //           Accept: 'application/JSON',
+  //           'content-type': 'application/JSON',
+  //         },
+  //         body: JSON.stringify(newPost),
+  //       });
+  //       if (!postResponse.ok) {
+  //         throw new Error('there was a problem adding new post to database');
+  //         throw new Error('there was a problem adding new post to database');
+  //       }
+  //       const postedData = await postResponse.json();
+  //     } catch (error) {
+  //       throw new Error(`error during post request, ${error}`);
+  //     }
+  //   };
+  //   // postData();
+  // }, []);
 
   //logic for what gets displayed on the screen
   let display;
