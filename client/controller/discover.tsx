@@ -88,7 +88,7 @@ export default function Discover({ allData, screen, setScreen, newPostData }) {
                         height='200px'
                         onClick={(e) => {
                           e.preventDefault();
-                          setScreen('selectedPost');
+
                           SetSelectedPost(item);
                         }}
                       />
@@ -143,7 +143,7 @@ export default function Discover({ allData, screen, setScreen, newPostData }) {
                         height='200px'
                         onClick={(e) => {
                           e.preventDefault();
-                          setScreen('selectedPost');
+
                           SetSelectedPost(item);
                         }}
                       />
@@ -185,7 +185,7 @@ export default function Discover({ allData, screen, setScreen, newPostData }) {
         <div className='galleryDisplay'>{display}</div>
       </>
     );
-  } else {
+  } else if (selectedPost) {
     return (
       <div className='individualPost'>
         <Food post={selectedPost} />
