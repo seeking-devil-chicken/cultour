@@ -1,3 +1,8 @@
+import { useState, useEffect } from "react";
+import type { JSX } from "react";
+import Posts from "../components/Posts";
+
+interface Data {
 import { useState, useEffect } from 'react';
 import type { JSX } from 'react';
 import Discover from '../controller/discover.tsx';
@@ -453,6 +458,8 @@ export default function App() {
 
   return (
     <>
+      <h1>Hello World!</h1>
+      {allData && <Posts countries={allData} />}
       <header className='homePage'>
         <img
           id='logo'
