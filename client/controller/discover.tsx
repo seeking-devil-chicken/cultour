@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import type { JSX } from "react";
-import Food from "../components/food.tsx";
-import Posts from "../components/Posts.tsx";
+import { useState, useEffect } from 'react';
+import type { JSX } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import IndividualPost from '../components/individualPost.tsx';
+import Posts from '../components/Posts.tsx';
 interface Posts {
   id: number;
   created_at: string;
@@ -13,12 +14,12 @@ interface Posts {
   image: string;
 }
 
-export default function Discover({ allData, screen, setScreen, newPostData }) {
+export default function Discover({ allData, newPostData }) {
   //state that holds a specific country data
   const [country, setCountry] = useState<string>();
   const [selectedPost, SetSelectedPost] = useState<Posts>();
   //array of all the categories
-  const categories: string[] = ["Food", "Games", "Customs", "Rituals", "Media"];
+  const categories: string[] = ['Food', 'Games', 'Customs', 'Rituals', 'Media'];
   //array of all data by category (array of arrays, corresponds to index of category array)
   const filterByCategory: [][] = categories.map((category) => {
     return allData.filter((data) => data.category === category);
@@ -30,19 +31,19 @@ export default function Discover({ allData, screen, setScreen, newPostData }) {
     );
   });
 
-  console.log("🐹filterByCatgory", filterByCategory);
+  console.log('🐹filterByCatgory', filterByCategory);
   //filter data by category to pass down to components
-  const filterByFood = allData.filter((data) => data.category === "Food");
-  const filterByGames = allData.filter((data) => data.category === "Games");
-  const filterByCustoms = allData.filter((data) => data.category === "Customs");
-  const filterByRutuals = allData.filter((data) => data.category === "Rituals");
-  const filterByMedia = allData.filter((data) => data.category === "Media");
+  const filterByFood = allData.filter((data) => data.category === 'Food');
+  const filterByGames = allData.filter((data) => data.category === 'Games');
+  const filterByCustoms = allData.filter((data) => data.category === 'Customs');
+  const filterByRutuals = allData.filter((data) => data.category === 'Rituals');
+  const filterByMedia = allData.filter((data) => data.category === 'Media');
 
   //unique set of countries from all data to be used in the dropdown
   const allCountries = allData.map((data) => data.country);
-  console.log("all countries", allCountries);
+  console.log('all countries', allCountries);
   const uniqueCountries = new Set([...allCountries]);
-  console.log("unique countries", uniqueCountries);
+  console.log('unique countries', uniqueCountries);
 
   //click handler for countries dropdown
   const selectCountry = (e) => {
@@ -52,7 +53,7 @@ export default function Discover({ allData, screen, setScreen, newPostData }) {
   let display;
 
   //default display (five randomized posts per category from all countries)
-  if (!country || country === "default") {
+  if (!country || country === 'default') {
     display = (
       <>
         {categories.map((category, index) => {
@@ -77,28 +78,25 @@ export default function Discover({ allData, screen, setScreen, newPostData }) {
           }
           return (
             <>
-              <div className="galleryHeader text-7xl px-5 py-5">
+              <div className='galleryHeader text-7xl px-5 py-5'>
                 <h2>{category}</h2>
               </div>
-              <div className="galleryPosts grid grid-cols-3 gap-7">
+              <div className='galleryPosts grid grid-cols-3 gap-7'>
                 {randomizedPosts.map((item, index) => {
                   return (
                     <div
-                      className="card relative rounded-xl overflow-hidden cursor-pointer group"
-                      onClick={(e) => {
-                        e.preventDefault();
-
-                        SetSelectedPost(item);
-                      }}
-                      key={index}>
-                      <div className="card-text absolute inset-0 flex justify-center items-center text-[#f7f7f7] text-3xl z-10">
+                      className='card relative rounded-xl overflow-hidden cursor-pointer group'
+                      onClick={(e) => navigate(`/posts/${item.id}`)}
+                      key={index}
+                    >
+                      <div className='card-text absolute inset-0 flex justify-center items-center text-[#f7f7f7] text-3xl z-10'>
                         {item.title}
                       </div>
-                      <div className="absolute inset-0 bg-black/50 group-hover:bg-black/10 transition-colors duration-300"></div>
+                      <div className='absolute inset-0 bg-black/50 group-hover:bg-black/10 transition-colors duration-300'></div>
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full"
+                        className='w-full h-full'
                       />
                     </div>
                   );
@@ -136,30 +134,27 @@ export default function Discover({ allData, screen, setScreen, newPostData }) {
           }
           return (
             <>
-              <div className="galleryHeader text-7xl px-5 py-5">
+              <div className='galleryHeader text-7xl px-5 py-5'>
                 <h2>{category}</h2>
               </div>
-              <div className="galleryPosts grid grid-cols-3 gap-7">
+              <div className='galleryPosts grid grid-cols-3 gap-7'>
                 {randomizedPosts.map((item, index) => {
                   return (
                     <div
-                      className="card relative rounded-xl overflow-hidden cursor-pointer group"
-                      onClick={(e) => {
-                        e.preventDefault();
-
-                        SetSelectedPost(item);
-                      }}
-                      key={index}>
-                      <div className="card-text absolute inset-0 flex justify-center items-center text-[#f7f7f7] text-3xl z-10">
+                      className='card relative rounded-xl overflow-hidden cursor-pointer group'
+                      onClick={(e) => navigate(`/posts/${item.id}`)}
+                      key={index}
+                    >
+                      <div className='card-text absolute inset-0 flex justify-center items-center text-[#f7f7f7] text-3xl z-10'>
                         {item.title}
                       </div>
-                      <div className="absolute inset-0 bg-black/50 group-hover:bg-black/10 transition-colors duration-300"></div>
+                      <div className='absolute inset-0 bg-black/50 group-hover:bg-black/10 transition-colors duration-300'></div>
                       <img
                         src={item.image}
                         alt={item.title}
-                        width="300px"
-                        height="200px"
-                        className="w-full h-full"
+                        width='300px'
+                        height='200px'
+                        className='w-full h-full'
                       />
                     </div>
                   );
@@ -172,45 +167,35 @@ export default function Discover({ allData, screen, setScreen, newPostData }) {
     );
   }
 
-  console.log("🏳️‍🌈country", country);
-  console.log("🐸selectedPost", selectedPost);
-  console.log("🐱screen", screen);
+  console.log('🏳️‍🌈country', country);
+  console.log('🐸selectedPost', selectedPost);
+  console.log('🐱screen', screen);
+  const navigate = useNavigate();
 
-  if (!selectedPost) {
-    return (
-      <>
-        <div className="actionItems flex justify-center flex-col items-center p-3">
-          <header>Post your own!</header>
-          {allData && <Posts countries={allData} />}
-          <label className="countries">Filter posts by country</label>
-          <select
-            className="countryFilter"
-            id="countryFilter"
-            onChange={selectCountry}>
-            <option value="default" key="0">
-              All countries
-            </option>
-            {[...uniqueCountries].map((country, index) => {
-              return (
-                <option value={country} key={index}>
-                  {country}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="galleryDisplay">{display}</div>
-      </>
-    );
-  } else if (selectedPost) {
-    return (
-      <div className="actionItems flex justify-center flex-col items-center p-3">
+  return (
+    <>
+      <div className='actionItems flex justify-center flex-col items-center p-3'>
         <header>Post your own!</header>
         {allData && <Posts countries={allData} />}
-        <div className="individualPost">
-          <Food post={selectedPost} />
-        </div>
+        <label className='countries'>Filter posts by country</label>
+        <select
+          className='countryFilter'
+          id='countryFilter'
+          onChange={selectCountry}
+        >
+          <option value='default' key='0'>
+            All countries
+          </option>
+          {[...uniqueCountries].map((country, index) => {
+            return (
+              <option value={country} key={index}>
+                {country}
+              </option>
+            );
+          })}
+        </select>
       </div>
-    );
-  }
+      <div className='galleryDisplay'>{display}</div>
+    </>
+  );
 }
