@@ -1,11 +1,8 @@
-import { useState, useEffect } from "react";
-import type { JSX } from "react";
-import Posts from "../components/Posts";
-
-interface Data {
 import { useState, useEffect } from 'react';
 import type { JSX } from 'react';
+import Posts from '../components/Posts';
 import Discover from '../controller/discover.tsx';
+
 interface Posts {
   id: number;
   created_at: string;
