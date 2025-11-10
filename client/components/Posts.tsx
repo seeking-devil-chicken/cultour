@@ -102,17 +102,23 @@ const Posts: React.FC<PostsProps> = ({ countries }) => {
   };
 
   return (
-    <div>
-      <button onClick={() => setShowForm(!showForm)}>Post</button>
+    <div className="relative flex flex-col items-center">
+      <button
+        onClick={() => setShowForm(!showForm)}
+        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition">
+        Post
+      </button>
 
       {showForm && (
-        <div className="popup">
-          <form className="post-form" onSubmit={handleSubmit}>
+        <div className="absolute top-full mt-2 bg-white border border-blue-400 shadow-lg rounded-lg w-[300px] p-4 z-1">
+          <form
+            className="post-form flex flex-col gap-3"
+            onSubmit={handleSubmit}>
             <h2>Create a Post</h2>
 
             <label>Country</label>
             <select
-              name="country"
+              name="country bg-blue-500"
               value={formData.country}
               onChange={(e) =>
                 setFormData({ ...formData, country: e.target.value })
@@ -145,6 +151,7 @@ const Posts: React.FC<PostsProps> = ({ countries }) => {
             <label>Title</label>
             <textarea
               placeholder="Title"
+              className = "border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
               value={formData.title}
               onChange={(e) =>
                 setFormData({ ...formData, title: e.target.value })
@@ -190,7 +197,7 @@ const Posts: React.FC<PostsProps> = ({ countries }) => {
               onChange={handleFileInput}
             />
 
-            <button type="submit" id="submitbutton">
+            <button type="submit" className ="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded transition">
               Submit
             </button>
           </form>
