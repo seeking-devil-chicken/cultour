@@ -35,7 +35,7 @@ Stores cultural events, intended to be populated from an external API (like Even
 | `ticket_price`   | VARCHAR(100)             | Price of the event (stored as text like "Free" or "$25").     |
 | `website_url`    | VARCHAR(255)             | A URL link for event details or tickets.                      |
 | `country`        | VARCHAR(100)             | The "cultural country" this event relates to (e.g., "Japan"). |
-| `category`       | VARCHAR(100)             | The event category (e.g., "Food", "Festival").                |
+| `category`       | VARCHAR(100)             | Categories: ['Food', 'Games', 'Customs', 'Rituals', 'Media']  |
 
 ---
 
