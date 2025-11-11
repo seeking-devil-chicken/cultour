@@ -14,7 +14,9 @@ This is the primary data model for an event, based on your table structure.
   "event_city": "New York",
   "event_title": "Vietnam Food Festival",
   "event_datetime": "2025-12-01T18:00:00Z",
-  "event_venue": "Union Square",
+  "address": "123 Union Square, New York, NY",
+  "description": "A vibrant festival celebrating Vietnamese street food, music, and crafts.",
+  "image": "https.example.com/images/event_banner.jpg",
   "ticket_price": "Free",
   "website_url": "https://example.com/fest",
   "country": "Vietnam",
@@ -43,17 +45,25 @@ This is the data model for related posts that will be attached to an event query
 
 ## 🚀 Endpoints
 
-### 1\. Get Events by City
+### 1\. Get Events by Country and Date Range
 
 `GET /api/events`
 
-Fetches a list of all events for a specific city.
+Fetches a list of all events for a specific country, with optional filtering by a date range.
 
 #### Query Parameters
 
-| Key    | Type   | Required | Description                                                                        |
-| :----- | :----- | :------- | :--------------------------------------------------------------------------------- |
-| `city` | String | **Yes**  | The name of the city (e.g., `New York`). Must be URL-encoded (e.g., `New%20York`). |
+| Key         | Type   | Required | Description                                                                           |
+| :---------- | :----- | :------- | :------------------------------------------------------------------------------------ |
+| `country`   | String | **Yes**  | The cultural country to filter by (e.g., `Vietnam`).                                  |
+| `startDate` | String | No       | The start of the date range (e.g., `2025-11-30`). Finds events on or after this date. |
+| `endDate`   | String | No       | The end of the date range (e.g., `2025-12-31`). Finds events on or before this date.  |
+
+> **Logic:**
+>
+> - If only `country` is provided, return all events for that country.
+> - If `country` and `startDate` are provided, return events for that country starting on or after `startDate`.
+> - If `country`, `startDate`, and `endDate` are provided, return events for that country within that inclusive date range.
 
 #### ✅ Success Response (200 OK)
 
@@ -68,15 +78,8 @@ Returns an array of `Event` objects. Returns an empty array `[]` if no events ar
     "event_datetime": "2025-12-01T18:00:00Z",
     "country": "Vietnam",
     "category": "Food",
-    "...": "..."
-  },
-  {
-    "id": 5,
-    "event_city": "New York",
-    "event_title": "Japan Cherry Blossom Picnic",
-    "event_datetime": "2026-04-10T12:00:00Z",
-    "country": "Japan",
-    "category": "Customs",
+    "address": "123 Union Square, New York, NY",
+    "image": "https.example.com/images/event_banner.jpg",
     "...": "..."
   }
 ]
@@ -107,7 +110,9 @@ Returns a single object containing `eventDetails` and an array of `relatedPosts`
     "event_city": "New York",
     "event_title": "Vietnam Food Festival",
     "event_datetime": "2025-12-01T18:00:00Z",
-    "event_venue": "Union Square",
+    "address": "123 Union Square, New York, NY",
+    "description": "A vibrant festival celebrating Vietnamese street food, music, and crafts.",
+    "image": "https://example.com/images/event_banner.jpg",
     "ticket_price": "Free",
     "website_url": "https://example.com/fest",
     "country": "Vietnam",
@@ -120,13 +125,6 @@ Returns a single object containing `eventDetails` and an array of `relatedPosts`
       "title": "Phở Bò",
       "text": "A classic Vietnamese noodle soup...",
       "image": "https.link.to.image.jpg"
-    },
-    {
-      "post_id": 2,
-      "country": "Vietnam",
-      "title": "Đá Cầu",
-      "text": "A traditional game played by kicking...",
-      "image": "https.link.to.image2.jpg"
     }
   ]
 }

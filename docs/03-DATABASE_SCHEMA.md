@@ -31,11 +31,13 @@ Stores cultural events, intended to be populated from an external API (like Even
 | `event_city`     | VARCHAR(100)             | The city where the event is held (e.g., "New York").          |
 | `event_title`    | VARCHAR(255)             | The name of the event.                                        |
 | `event_datetime` | TIMESTAMP WITH TIME ZONE | The start date and time of the event (with timezone).         |
-| `event_venue`    | VARCHAR(255)             | The name or address of the event location.                    |
+| `address`        | VARCHAR(255)             | The name or address of the event location.                    |
+| `description`    | TEXT                     | A brief description of the event.                             |
+| `image`          | VARCHAR(255)             | A URL link to a banner image for the event.                   |
 | `ticket_price`   | VARCHAR(100)             | Price of the event (stored as text like "Free" or "$25").     |
 | `website_url`    | VARCHAR(255)             | A URL link for event details or tickets.                      |
 | `country`        | VARCHAR(100)             | The "cultural country" this event relates to (e.g., "Japan"). |
-| `category`       | VARCHAR(100)             | Categories: ['Food', 'Games', 'Customs', 'Rituals', 'Media']  |
+| `category`       | VARCHAR(100)             | The event category (e.g., "Food", "Festival").                |
 
 ---
 
@@ -63,6 +65,7 @@ CREATE TABLE posts (
 -- =================================================================
 -- Table 2: events
 -- Stores cultural events fetched from third-party APIs.
+-- (UPDATED SCHEMA)
 -- =================================================================
 
 CREATE TABLE events (
@@ -70,11 +73,12 @@ CREATE TABLE events (
     event_city VARCHAR(100) NOT NULL,
     event_title VARCHAR(255) NOT NULL,
     event_datetime TIMESTAMP WITH TIME ZONE,
-    event_venue VARCHAR(255),
+    address VARCHAR(255),
+    description TEXT,
+    image VARCHAR(255),
     ticket_price VARCHAR(100),
     website_url VARCHAR(255),
     country VARCHAR(100),
     category VARCHAR(100)
 );
-
 ```
