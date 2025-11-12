@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react';
-import type { JSX } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import IndividualPost from '../components/individualPost.tsx';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Posts from '../components/Posts.tsx';
 interface Posts {
   id: number;
@@ -14,7 +12,12 @@ interface Posts {
   image: string;
 }
 
-export default function Discover({ allData, newPostData }) {
+interface DiscoverProps {
+  allData: Posts[] | null;
+  newPostData: React.Dispatch<React.SetStateAction<any>>;
+}
+
+export default function Discover({ allData, newPostData }: DiscoverProps) {
   if (!allData) {
     return <div>Loading posts...</div>;
   }
@@ -24,11 +27,11 @@ export default function Discover({ allData, newPostData }) {
   //array of all the categories
   const categories: string[] = ['Food', 'Games', 'Customs', 'Rituals', 'Media'];
   //array of all data by category (array of arrays, corresponds to index of category array)
-  const filterByCategory: [][] = categories.map((category) => {
+  const filterByCategory: Posts[][] = categories.map((category) => {
     return allData.filter((data) => data.category === category);
   });
   //array of all data by country and category
-  const filterByCountryAndCategory: [][] = categories.map((category) => {
+  const filterByCountryAndCategory: Posts[][] = categories.map((category) => {
     return allData.filter(
       (data) => data.country === country && data.category === category
     );
@@ -43,7 +46,7 @@ export default function Discover({ allData, newPostData }) {
   console.log('unique countries', uniqueCountries);
 
   //click handler for countries dropdown
-  const selectCountry = (e) => {
+  const selectCountry = (e: any) => {
     setCountry(e.target.value);
   };
 

@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import type { JSX } from 'react';
 import { useParams } from 'react-router-dom';
+
 interface Posts {
   id: number;
   created_at: string;
@@ -12,13 +11,16 @@ interface Posts {
   image: string;
 }
 
-//component for all individual posts
-export default function IndividualPost({ allData }) {
+interface IndividualPostProps {
+  allData: Posts[] | null;
+}
+
+export default function IndividualPost({ allData }: IndividualPostProps) {
   if (!allData) {
     return <div>Loading post...</div>;
   }
   const { id } = useParams();
-  const post = allData.find((post) => Number(post.id) === Number(id));
+  const post = allData.find((post) => post.id === Number(id));
 
   if (!post) {
     return <p>Post not found!</p>;

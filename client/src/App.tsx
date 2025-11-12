@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import type { JSX } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Posts from '../components/Posts';
 import Discover from '../controller/discover.tsx';
@@ -40,15 +39,21 @@ interface Event {
   category: string;
 }
 //helper function to create request param
-async function fetchEventsByCountry(country, dateFrom, dateTo) {
+async function fetchEventsByCountry(
+  dateFrom: string,
+  dateTo: string,
+  country?: string
+) {
   const params = new URLSearchParams();
-  params.set('country', country);
+  if (country) {
+    params.set('country', country);
+  }
   params.set('startDate', dateFrom);
   params.set('endDate', dateTo);
   const res = await fetch(
-    'http://localhost:3000/api/events?${params.toString()}'
+    `http://localhost:4000/api/events?${params.toString()}`
   );
-  if (!res) {
+  if (!res.ok) {
     throw new Error('there was a problem fetching events data');
   }
   return res.json();
@@ -58,8 +63,6 @@ export default function App() {
   const [allData, setAllData] = useState<Posts[] | null>(null);
 
   const [postData, setPostData] = useState();
-  const [eventCountries, setEventCountries] = useState<String[]>();
-  const [selectedCountry, setSelectedCountry] = useState<String>();
   const [eventsData, setEventsData] = useState<Event[]>();
 
   //GET request
@@ -83,74 +86,19 @@ export default function App() {
     getData();
   }, []);
 
-  // console.log('🍎allData', allData);
-  // //POST request for creating new posts
-  // useEffect(() => {
-  //   const postData = async () => {
-  //     const url = 'http://localhost:4000/userpost'; //will update later
-  //     const newPost = {
-  //       name: '',
-  //       country: '',
-  //       category: '',
-  //       text: '',
-  //       image: '',
-  //     };
-  //     try {
-  //       const postResponse = await fetch(url, {
-  //         method: 'POST',
-  //         headers: {
-  //           Accept: 'application/JSON',
-  //           'content-type': 'application/JSON',
-  //         },
-  //         body: JSON.stringify(newPost),
-  //       });
-  //       if (!postResponse.ok) {
-  //         throw new Error('there was a problem adding new post to database');
-  //       }
-  //       const postedData = await postResponse.json();
-  //     } catch (error) {
-  //       throw new Error(`error during post request, ${error}`);
-  //     }
-  //   };
-  //   postData();
-  // }, []);
-
   //GET request for events data
   useEffect(() => {
-    if (!selectedCountry) return;
     const getEventsData = async () => {
       const today = new Date();
       const oneMonth = new Date();
       oneMonth.setDate(oneMonth.getDate() + 30);
       const todayAPI = today.toISOString().split('T')[0];
       const oneMonthAPI = oneMonth.toISOString().split('T')[0];
-      const promise = fetchEventsByCountry(
-        selectedCountry,
-        todayAPI,
-        oneMonthAPI
-      );
+      const promise = fetchEventsByCountry(todayAPI, oneMonthAPI);
       const eventsData = await promise;
       setEventsData(eventsData);
     };
-    //getEventsData();
-  }, [selectedCountry]);
-
-  //GET request for countries in the events page
-  useEffect(() => {
-    const getEventCountriesData = async () => {
-      try {
-        const url = 'http://localhost:3000/api/countries';
-        const response = await fetch(url);
-        if (!response) {
-          throw new Error('could not fetch event countries data');
-        }
-        const eventCountries = await response.json();
-        setEventCountries(eventCountries);
-      } catch (error) {
-        throw new Error(`Could not fetch event countries data ${error}`);
-      }
-    };
-    // getEventCountriesData();
+    getEventsData();
   }, []);
 
   const navigate = useNavigate();
@@ -214,10 +162,7 @@ export default function App() {
               </>
             }
           />
-          <Route
-            path='/events/:id'
-            element={<IndividualEvent allEvents={eventsData} />}
-          />
+          <Route path='/events/:id' element={<IndividualEvent />} />
         </Routes>
       </div>
     </>

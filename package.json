@@ -5,6 +5,7 @@
     "dev:client": "vite --host",
     "dev": "concurrently \"npm:start\" \"npm:dev:client\"",
     "preview": "vite preview"
+
   },
   "type": "module",
   "dependencies": {

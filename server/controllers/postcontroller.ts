@@ -12,7 +12,6 @@ export default {
         [user_id, country, category, title, text, image] // Include user_id here
       );
 
-      console.log(' Post created:', result.rows[0]);
       res.locals.newPost = result.rows[0];
       return next();
     } catch (err) {

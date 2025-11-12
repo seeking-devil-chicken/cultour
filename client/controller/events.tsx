@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-import type { JSX, JSXElementConstructor } from 'react';
-import { Routes, Route, useNavigate, NavigateFunction } from 'react-router-dom';
-import IndividualEvent from '../components/individualEvent.tsx';
+import { useState } from 'react';
+import type { JSX } from 'react';
+import { useNavigate, NavigateFunction } from 'react-router-dom';
 
 interface Event {
   id: number;
@@ -17,11 +16,19 @@ interface Event {
   category: string;
 }
 
+interface EventsProps {
+  allEvents: Event[] | undefined;
+}
+
 //helper functions to filter data
 function filterByDateAndCategory(
   allData: Event[],
   categories: string[]
 ): Event[][] {
+  // Add a check for null or undefined allData
+  if (!allData) {
+    return categories.map(() => []);
+  }
   const result: Event[][] = categories.map((category) => {
     return allData
       .filter((event) => event.category === category)
@@ -40,12 +47,16 @@ function filterByCountry(filteredData: Event[][], country: string) {
   );
 }
 function getCountries(allData: Event[]): string[] {
+  // Add a check for null or undefined allData
+  if (!allData) {
+    return [];
+  }
   const countries = allData.map((data) => data.country);
   const uniqueCountries = new Set([...countries]);
   return Array.from(uniqueCountries);
 }
 
-export default function Events({ allEvents }) {
+export default function Events({ allEvents }: EventsProps) {
   const [country, setCountry] = useState<string>('default');
   const [selectedEvent, SetSelectedEvent] = useState<Event>();
   //array of all the categories
@@ -55,6 +66,11 @@ export default function Events({ allEvents }) {
     setCountry(e.target.value);
   };
   const navigate: NavigateFunction = useNavigate();
+
+  if (!allEvents) {
+    return <div>Loading events...</div>;
+  }
+
   const filteredByDateAndCategory = filterByDateAndCategory(
     allEvents,
     categories
@@ -64,6 +80,12 @@ export default function Events({ allEvents }) {
     country
   );
   let display: JSX.Element;
+
+  // Add a loading state if allEvents is not yet loaded
+  if (!allEvents) {
+    return <div>Loading events...</div>;
+  }
+
   //default display (five randomized posts per category from all countries)
   display = (
     <>
@@ -79,7 +101,7 @@ export default function Events({ allEvents }) {
                     return (
                       <div
                         className='card relative rounded-xl overflow-hidden cursor-pointer group'
-                        onClick={(e) => navigate(`/eventposts/${item.id}`)}
+                        onClick={(e) => navigate(`/events/${item.id}`)}
                         key={i}
                       >
                         <div className='card-text absolute inset-0 flex justify-center items-center text-[#f7f7f7] text-3xl z-10'>
@@ -98,7 +120,7 @@ export default function Events({ allEvents }) {
                     return (
                       <div
                         className='card relative rounded-xl overflow-hidden cursor-pointer group'
-                        onClick={(e) => navigate(`/eventposts/${item.id}`)}
+                        onClick={(e) => navigate(`/events/${item.id}`)}
                         key={i}
                       >
                         <div className='card-text absolute inset-0 flex justify-center items-center text-[#f7f7f7] text-3xl z-10'>

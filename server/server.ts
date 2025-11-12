@@ -1,9 +1,9 @@
 import 'dotenv/config';
 import express from 'express';
-
 import { Request, Response, NextFunction } from 'express';
 import querycontroller from './controllers/querycontroller.js';
 import postcontroller from './controllers/postcontroller.js';
+import eventsController from './controllers/eventsController.js';
 import cors from 'cors';
 
 const app = express();
@@ -27,6 +27,14 @@ app.get('/countries', querycontroller.getQuery, (req, res) => {
 
 app.post('/userpost', postcontroller.postData, (req, res) => {
   res.status(200).json(res.locals.newPost);
+});
+
+app.get('/api/events', eventsController.getEvents, (req, res) => {
+  res.status(200).json(res.locals.events);
+});
+
+app.get('/api/events/:id', eventsController.getEventById, (req, res) => {
+  res.status(200).json(res.locals.eventDetails);
 });
 
 app.use((req, res) => {
