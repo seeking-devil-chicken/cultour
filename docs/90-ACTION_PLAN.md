@@ -17,7 +17,7 @@
 
 ### Nam & Mari (Shared Root Setup):
 
-- `[ ]` **Task 1.1: Install All Dependencies (Root)**
+- `[x]` **Task 1.1: Install All Dependencies (Root)**
 
   - **Owner:** Nam
   - **Task:** From the root directory, run `npm install` for all new dev dependencies needed for this feature.
@@ -33,21 +33,21 @@
 
 ### Nam (Backend):
 
-- `[ ]` **Task 1.2: Database Migration**
+- `[x]` **Task 1.2: Database Migration**
   - **Task:** Run the updated `CREATE TABLE events (...)` script (from `DATABASE_SCHEMA.md`) on the development database. (This now includes `address`, `description`, and `image`).
-- `[ ]` **Task 1.3: Environment Setup**
+- `[x]` **Task 1.3: Environment Setup**
   - **Task:** Register for an Eventbrite Developer account, get a private API key, and add it to the root `.env` file (e.g., `EVENTBRITE_API_KEY=...`).
-- `[ ]` **Task 1.4: Server JS-to-TS Refactor**
+- `[x]` **Task 1.4: Server JS-to-TS Refactor**
   - **Task:**
     - Create `server/tsconfig.json` (using `NodeNext` for module resolution).
     - Rename all existing `.js` files in `server/` (e.g., `server.js`, `postcontroller.js`, `database.js`) to `.ts`.
     - Fix all imports (remove `.js` extensions) and add explicit types (e.g., `Request`, `Response`, `NextFunction` in controllers).
-- `[ ]` **Task 1.5: Vitest Setup (Backend)**
+- `[x]` **Task 1.5: Vitest Setup (Backend)**
   - **Task:** Create a `server/vitest.config.ts` file to configure Vitest for the Node.js environment.
 
 ### Mari (Frontend):
 
-- `[ ]` **Task 1.6: Vitest Setup (Frontend)**
+- `[x]` **Task 1.6: Vitest Setup (Frontend)**
   - **Task:** Update `client/vite.config.ts` (or create `client/vitest.config.ts`) to configure Vitest for React/JSDOM testing.
 
 ---

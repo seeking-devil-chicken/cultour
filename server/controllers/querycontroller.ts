@@ -7,7 +7,7 @@ export default {
     try {
       const result = await database.query('SELECT * FROM posts', []);
       const finalres = result.rows;
-      console.log(finalres);
+      // console.log(finalres);
 
       if (!finalres) {
         return next({

@@ -55,13 +55,14 @@ Fetches a list of all events for a specific country, with optional filtering by 
 
 | Key         | Type   | Required | Description                                                                           |
 | :---------- | :----- | :------- | :------------------------------------------------------------------------------------ |
-| `country`   | String | **Yes**  | The cultural country to filter by (e.g., `Vietnam`).                                  |
+| `country`   | String | No       | The cultural country to filter by (e.g., `Vietnam`).                                  |
 | `startDate` | String | No       | The start of the date range (e.g., `2025-11-30`). Finds events on or after this date. |
 | `endDate`   | String | No       | The end of the date range (e.g., `2025-12-31`). Finds events on or before this date.  |
 
 > **Logic:**
 >
-> - If only `country` is provided, return all events for that country.
+> - If nothing is provied, return all events that have not been expired (max 50 rows).
+> - If only `country` is provided, return all events for that country and have not been expired (max 50 rows).
 > - If `country` and `startDate` are provided, return events for that country starting on or after `startDate`.
 > - If `country`, `startDate`, and `endDate` are provided, return events for that country within that inclusive date range.
 
