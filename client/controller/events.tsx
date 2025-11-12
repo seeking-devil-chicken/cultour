@@ -7,7 +7,7 @@ interface Event {
   id: number;
   event_city: string;
   event_title: string;
-  event_datetime: Date;
+  event_datetime: string;
   address: string;
   description: string;
   image: string;
@@ -45,7 +45,7 @@ function getCountries(allData: Event[]): string[] {
   return Array.from(uniqueCountries);
 }
 
-export default function Discover({ allData, newPostData }) {
+export default function Events({ allEvents }) {
   const [country, setCountry] = useState<string>('default');
   const [selectedEvent, SetSelectedEvent] = useState<Event>();
   //array of all the categories
@@ -56,7 +56,7 @@ export default function Discover({ allData, newPostData }) {
   };
   const navigate: NavigateFunction = useNavigate();
   const filteredByDateAndCategory = filterByDateAndCategory(
-    allData,
+    allEvents,
     categories
   );
   const filteredByDateCategoryCountry = filterByCountry(
@@ -131,7 +131,7 @@ export default function Discover({ allData, newPostData }) {
           <option value='default' key='0'>
             All countries
           </option>
-          {getCountries(allData).map((country, index) => {
+          {getCountries(allEvents).map((country, index) => {
             return (
               <option value={country} key={index}>
                 {country}

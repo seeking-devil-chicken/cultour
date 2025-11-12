@@ -4,6 +4,9 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Posts from '../components/Posts';
 import Discover from '../controller/discover.tsx';
 import IndividualPost from '../components/individualPost.tsx';
+import Events from '../controller/events.tsx';
+import IndividualEvent from '../components/individualEvent.tsx';
+
 interface Posts {
   id: number;
   created_at: string;
@@ -23,11 +26,41 @@ interface User {
   password: string;
 }
 
+interface Event {
+  id: number;
+  event_city: string;
+  event_title: string;
+  event_datetime: string;
+  address: string;
+  description: string;
+  image: string;
+  ticket_price: string;
+  website_url: string;
+  country: string;
+  category: string;
+}
+//helper function to create request param
+async function fetchEventsByCountry(country, dateFrom, dateTo) {
+  const params = new URLSearchParams();
+  params.set('country', country);
+  params.set('startDate', dateFrom);
+  params.set('endDate', dateTo);
+  const res = await fetch(
+    'http://localhost:3000/api/events?${params.toString()}'
+  );
+  if (!res) {
+    throw new Error('there was a problem fetching events data');
+  }
+  return res.json();
+}
+
 export default function App() {
   const [allData, setAllData] = useState<Posts[] | null>(null);
 
   const [postData, setPostData] = useState();
-  const [screen, setScreen] = useState('home');
+  const [eventCountries, setEventCountries] = useState<String[]>();
+  const [selectedCountry, setSelectedCountry] = useState<String>();
+  const [eventsData, setEventsData] = useState<Event[]>();
 
   //GET request
   useEffect(() => {
@@ -82,6 +115,44 @@ export default function App() {
   //   postData();
   // }, []);
 
+  //GET request for events data
+  useEffect(() => {
+    if (!selectedCountry) return;
+    const getEventsData = async () => {
+      const today = new Date();
+      const oneMonth = new Date();
+      oneMonth.setDate(oneMonth.getDate() + 30);
+      const todayAPI = today.toISOString().split('T')[0];
+      const oneMonthAPI = oneMonth.toISOString().split('T')[0];
+      const promise = fetchEventsByCountry(
+        selectedCountry,
+        todayAPI,
+        oneMonthAPI
+      );
+      const eventsData = await promise;
+      setEventsData(eventsData);
+    };
+    //getEventsData();
+  }, [selectedCountry]);
+
+  //GET request for countries in the events page
+  useEffect(() => {
+    const getEventCountriesData = async () => {
+      try {
+        const url = 'http://localhost:3000/api/countries';
+        const response = await fetch(url);
+        if (!response) {
+          throw new Error('could not fetch event countries data');
+        }
+        const eventCountries = await response.json();
+        setEventCountries(eventCountries);
+      } catch (error) {
+        throw new Error(`Could not fetch event countries data ${error}`);
+      }
+    };
+    // getEventCountriesData();
+  }, []);
+
   const navigate = useNavigate();
 
   //router structure for the whole app
@@ -134,6 +205,18 @@ export default function App() {
           <Route
             path='/posts/:id'
             element={<IndividualPost allData={allData} />}
+          />
+          <Route
+            path='/events/'
+            element={
+              <>
+                <Events allEvents={eventsData} />
+              </>
+            }
+          />
+          <Route
+            path='/events/:id'
+            element={<IndividualEvent allEvents={eventsData} />}
           />
         </Routes>
       </div>
