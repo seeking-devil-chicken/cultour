@@ -15,6 +15,9 @@ interface Posts {
 }
 
 export default function Discover({ allData, newPostData }) {
+  if (!allData) {
+    return <div>Loading posts...</div>;
+  }
   //state that holds a specific country data
   const [country, setCountry] = useState<string>();
   const [selectedPost, SetSelectedPost] = useState<Posts>();

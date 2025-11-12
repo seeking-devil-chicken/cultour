@@ -55,12 +55,8 @@ async function fetchEventsByCountry(country, dateFrom, dateTo) {
 }
 
 export default function App() {
-  //holds three states:
-  //1. all the post data in the SQL database
-  //2. data for creating new post
-  //3. screen mode
-  const [allData, setAllData] = useState<Posts[] | null>();
-  const [allPostData, setAllPostData] = useState<Posts[] | null>();
+  const [allData, setAllData] = useState<Posts[] | null>(null);
+
   const [postData, setPostData] = useState();
   const [eventCountries, setEventCountries] = useState<String[]>();
   const [selectedCountry, setSelectedCountry] = useState<String>();
@@ -87,37 +83,37 @@ export default function App() {
     getData();
   }, []);
 
-  console.log('🍎allData', allData);
-  //POST request for creating new posts
-  useEffect(() => {
-    const postData = async () => {
-      const url = 'http://localhost:4000/userpost'; //will update later
-      const newPost = {
-        name: '',
-        country: '',
-        category: '',
-        text: '',
-        image: '',
-      };
-      try {
-        const postResponse = await fetch(url, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/JSON',
-            'content-type': 'application/JSON',
-          },
-          body: JSON.stringify(newPost),
-        });
-        if (!postResponse.ok) {
-          throw new Error('there was a problem adding new post to database');
-        }
-        const postedData = await postResponse.json();
-      } catch (error) {
-        throw new Error(`error during post request, ${error}`);
-      }
-    };
-    postData();
-  }, []);
+  // console.log('🍎allData', allData);
+  // //POST request for creating new posts
+  // useEffect(() => {
+  //   const postData = async () => {
+  //     const url = 'http://localhost:4000/userpost'; //will update later
+  //     const newPost = {
+  //       name: '',
+  //       country: '',
+  //       category: '',
+  //       text: '',
+  //       image: '',
+  //     };
+  //     try {
+  //       const postResponse = await fetch(url, {
+  //         method: 'POST',
+  //         headers: {
+  //           Accept: 'application/JSON',
+  //           'content-type': 'application/JSON',
+  //         },
+  //         body: JSON.stringify(newPost),
+  //       });
+  //       if (!postResponse.ok) {
+  //         throw new Error('there was a problem adding new post to database');
+  //       }
+  //       const postedData = await postResponse.json();
+  //     } catch (error) {
+  //       throw new Error(`error during post request, ${error}`);
+  //     }
+  //   };
+  //   postData();
+  // }, []);
 
   //GET request for events data
   useEffect(() => {
@@ -205,7 +201,7 @@ export default function App() {
               </>
             }
           />
-          =
+
           <Route
             path='/posts/:id'
             element={<IndividualPost allData={allData} />}

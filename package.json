@@ -1,8 +1,9 @@
 {
   "scripts": {
     "build": "vite build && tsc --noEmit",
-    "start": "node --watch server/server.js",
-    "dev": "vite --host",
+    "start": "node --watch --loader ts-node/esm server/server.ts",
+    "dev:client": "vite --host",
+    "dev": "concurrently \"npm:start\" \"npm:dev:client\"",
     "preview": "vite preview"
   },
   "type": "module",
@@ -21,6 +22,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1",
+    "@types/pg": "^8.15.6",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^5.1.0",
     "concurrently": "^9.2.1",
@@ -28,8 +35,12 @@
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.5.0",
     "jiti": "^2.6.1",
+    "jsdom": "^27.1.0",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.3",
-    "vite": "^7.1.12"
+    "vite": "^7.1.12",
+    "vitest": "^4.0.8"
   }
 }
