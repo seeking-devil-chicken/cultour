@@ -56,23 +56,23 @@
 
 **Goal:** Create services to fetch data from Eventbrite, populate the database, and build the two new API endpoints as defined in `EVENTS_API.md`. All new code must be in TypeScript.
 
-- `[ ]` **Task 2.1.1: Eventbrite Service**
+- `[x]` **Task 2.1.1: Eventbrite Service**
   - **Task:**
     - Create a new service (`server/services/eventbriteService.ts`).
     - Implement a function (e.g., `fetchEventsByLocation(...)`) that calls the Eventbrite API.
     - This function must **transform** the complex JSON response from Eventbrite into the `events` table structure (including `address`, `description`, `image`, `country`, etc.).
-- `[ ]` **Task 2.1.2: Data Population Script**
+- `[x]` **Task 2.1.2: Data Population Script**
   - **Task:**
     - Create a standalone script (`server/scripts/seedEvents.ts`).
     - This script will import the `eventbriteService`, call it for target cities/countries, and perform `INSERT` queries to populate the `events` table.
     - Run this script once to populate the dev database.
-- `[ ]` **Task 2.1.3: API Endpoint - `GET /api/events`**
+- `[x]` **Task 2.1.3: API Endpoint - `GET /api/events`**
   - **Task:**
     - Create a new controller (`server/controllers/eventsController.ts`).
     - Create a new route (`GET /api/events`) in `server.ts`.
     - The controller must read `country` (required), `startDate` (optional), and `endDate` (optional) from `req.query`.
     - It must build a dynamic SQL query to filter by `country` and optionally by the date range (`event_datetime`).
-- `[ ]` **Task 2.1.4: API Endpoint - `GET /api/events/:id`**
+- `[x]` **Task 2.1.4: API Endpoint - `GET /api/events/:id`**
   - **Task:**
     - Create a new route (`GET /api/events/:id`) in `server.ts`.
     - Implement the join logic in `eventsController.ts`:
@@ -88,25 +88,25 @@
 
 **Goal:** Build the new "Events" pages _without_ waiting for Nam, using local mock data that perfectly matches the _new_ API specification.
 
-- `[ ]` **Task 2.2.1: Create Mock Data**
+- **Task 2.2.1: Create Mock Data**
   - **Task:**
     - Create a new file: `client/src/mocks/mockData.ts`.
     - In this file, export dummy data for `Event` objects that **include `address`, `description`, and `image`** (and remove `event_venue`).
     - Create a mock service (`client/src/mocks/mockApiService.ts`) with functions like `getEvents(params: { country, startDate?, endDate? })` and `getEventById(id)` that return your mock data (as a Promise).
-- `[ ]` **Task 2.2.2: Setup Routes & Navigation**
+- `[x]` **Task 2.2.2: Setup Routes & Navigation**
   - **Task:**
     - In `App.tsx`, wire the "Find events" button to `Maps('/events')`.
     - Add two new `<Route>` components to the `<Routes>` block in `App.tsx`:
       - `<Route path="/events" element={<EventsPage />} />`
       - `<Route path="/events/:id" element={<EventDetailPage />} />`
-- `[ ]` **Task 2.2.3: New Page - Event List (`/events`)**
+- `[x]` **Task 2.2.3: New Page - Event List (`/events`)**
   - **Task:**
     - Create a new component (`client/src/pages/EventsPage.tsx`).
     - Add filters for `country` (dropdown/select) and optionally two date pickers (`startDate`, `endDate`).
     - On search/filter, call your `mockApiService.getEvents(...)` function.
     - Map over the returned array and render "Event Cards" (showing `image`, `event_title`, `event_datetime`).
     - Each card must be a `<Link>` that navigates to `/events/{event.id}`.
-- `[ ]` **Task 2.2.4: New Page - Event Detail (`/events/:id`)**
+- `[x]` **Task 2.2.4: New Page - Event Detail (`/events/:id`)**
   - **Task:**
     - Create a new component (`client/src/pages/EventDetailPage.tsx`).
     - Use the `useParams()` hook to get the event `:id` from the URL.
@@ -122,7 +122,7 @@
 
 ### Mari (Frontend):
 
-- `[ ]` **Task 3.1: API Integration**
+- `[x]` **Task 3.1: API Integration**
   - **Task:**
     - Once Nam confirms the API is ready, modify your API service.
     - Remove the mock logic and replace it with real `fetch` calls (e.g., `fetch('http://localhost:4000/api/events?country=Vietnam&startDate=...')`).
