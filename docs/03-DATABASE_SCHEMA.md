@@ -12,7 +12,7 @@ Stores all user-generated content about cultural activities, food, customs, etc.
 
 | Column       | Type               | Description                                             |
 | :----------- | :----------------- | :------------------------------------------------------ |
-| `post_id`    | SERIAL PRIMARY KEY | Unique identifier for the post.                         |
+| `id`         | SERIAL PRIMARY KEY | Unique identifier for the post.                         |
 | `user_id`    | INTEGER            | A simple numeric ID for the author (not a foreign key). |
 | `country`    | VARCHAR(100)       | The country this post is about (e.g., "Vietnam").       |
 | `category`   | VARCHAR(100)       | The post category (e.g., "Food", "Games", "Customs").   |
@@ -52,7 +52,7 @@ Run this script in your PostgreSQL database to create both tables.
 -- =================================================================
 
 CREATE TABLE posts (
-    post_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     user_id INTEGER,
     country VARCHAR(100),
     category VARCHAR(100),

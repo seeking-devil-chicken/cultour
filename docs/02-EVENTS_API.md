@@ -30,7 +30,7 @@ This is the data model for related posts that will be attached to an event query
 
 ```json
 {
-  "post_id": 1,
+  "id": 1,
   "user_id": 1,
   "country": "Vietnam",
   "category": "Food",
@@ -121,7 +121,7 @@ Returns a single object containing `eventDetails` and an array of `relatedPosts`
   },
   "relatedPosts": [
     {
-      "post_id": 1,
+      "id": 1,
       "country": "Vietnam",
       "title": "Phở Bò",
       "text": "A classic Vietnamese noodle soup...",
