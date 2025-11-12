@@ -1,5 +1,3 @@
-/* global process */
-
 import { Pool } from 'pg';
 
 const PG_URI = process.env.PG_URI;
@@ -9,7 +7,7 @@ const pool = new Pool({
 });
 
 export default {
-  query: (text, params) => {
+  query: (text: string, params: any[]) => {
     console.log('executed query', text);
     return pool.query(text, params);
   },

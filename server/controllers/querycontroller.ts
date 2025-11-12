@@ -1,11 +1,11 @@
-// import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 import database from '../models/database.js';
 
 export default {
   // MIDDLEWARE FOR COUNTRIES
-  getQuery: async (req, res, next) => {
+  getQuery: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await database.query('SELECT * FROM posts');
+      const result = await database.query('SELECT * FROM posts', []);
       const finalres = result.rows;
       console.log(finalres);
 

@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 
+import { Request, Response, NextFunction } from 'express';
 import querycontroller from './controllers/querycontroller.js';
 import postcontroller from './controllers/postcontroller.js';
 import cors from 'cors';
@@ -32,7 +33,7 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-app.use((err, req, res, next) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.log('Error handler triggered!');
   console.log('Error:', err);
 
