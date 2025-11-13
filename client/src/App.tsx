@@ -109,6 +109,7 @@ export default function App() {
       <header className='homePage flex justify-center flex-col items-center text-3xl pb-10'>
         <Link to='/'>
           <img
+            className='logo'
             id='logo'
             src='../client/assets/favicon.png'
             width='100px'
@@ -132,17 +133,43 @@ export default function App() {
                   rituals, and media. It’s a space for discovery, connection,
                   and community building.
                 </p>
-                <div className='homebuttons flex flex-col p-3'>
-                  <button
-                    className='my-5'
-                    id='discover'
+                <div className='pathWrapper grid grid-cols-1 md:grid-cols-2 gap-8 m-5'>
+                  <div
+                    className='discoverPath relative aspect-[16/9] overflow-hidden object-cover object-center group rounded-xl'
                     onClick={() => navigate('/discover')}
                   >
-                    Discover activities
-                  </button>
-                  <button id='events' onClick={() => navigate('/events')}>
-                    Find events
-                  </button>
+                    <img
+                      src='../client/assets/discover-image.png'
+                      className='w-full h-full object-cover object-center block'
+                    ></img>
+                    <div className='absolute inset-0 bg-black/30 group-hover:bg-[#fcc61d] transition-colors duration-300'></div>
+                    <div className='absolute inset-0 flex justify-center items-center pl-7 pr-7 z-10'>
+                      <h2
+                        className='text-3xl text-[#f7f7f7] text-shadow-sm text-shadow-black/10'
+                        id='discover'
+                      >
+                        Discover activities
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    className='eventsPath relative aspect-[16/9] overflow-hidden object-cover object-center group rounded-xl'
+                    onClick={() => navigate('/events')}
+                  >
+                    <img
+                      src='../client/assets/find-events-image.jpg'
+                      className='w-full h-full object-cover object-center block'
+                    ></img>
+                    <div className='absolute inset-0 bg-black/30 group-hover:bg-[#fcc61d] transition-colors duration-300'></div>
+                    <div className='absolute inset-0 flex justify-center items-center pl-7 pr-7 z-10'>
+                      <h2
+                        className='text-3xl text-[#f7f7f7] text-shadow-sm text-shadow-black/10'
+                        id='events'
+                      >
+                        Find events
+                      </h2>
+                    </div>
+                  </div>
                 </div>
               </>
             }

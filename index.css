@@ -1,7 +1,7 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #c59560;
@@ -24,6 +24,37 @@ button {
   background-color: #fcc61d;
 }
 
+button:hover {
+  color: #3338a0;
+  border: 2px solid #3338a0;
+}
+
 p {
   font-size: 1.5rem;
+}
+
+.logo {
+  animation: logo-spin 0.7s linear 1;
+}
+
+.logo:hover {
+  animation: logo-spin-hover 0.7s linear 1;
+}
+
+@keyframes logo-spin {
+  0% {
+    transform: rotateY(0);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+
+@keyframes logo-spin-hover {
+  0% {
+    transform: rotateY(0);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
 }

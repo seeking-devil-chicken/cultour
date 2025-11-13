@@ -179,7 +179,7 @@ export default function Events({ allEvents }: EventsProps) {
               {visibleEvents.map((item, i) => {
                 return (
                   <div
-                    className='card relative snap-start rounded-xl shadow-[0px_0px_7px_rgba(0,0,0,0.25)] overflow-hidden cursor-pointer group shrink-0 aspect-[16/9]'
+                    className='card relative snap-start rounded-xl shadow-[0px_0px_7px_rgba(0,0,0,0.25)] overflow-hidden cursor-pointer group shrink-0 w-[400px] h-[300px]'
                     onClick={(e) => navigate(`/events/${item.id}`)}
                     key={i}
                   >

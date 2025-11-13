@@ -126,7 +126,16 @@ export default function IndividualEvent() {
             </div>
             <div className='flex items-center gap-2'>
               <TbWorld className='text-2xl' />
-              <span>{eventDetails.website_url}</span>
+              <span>
+                <a
+                  href={eventDetails.website_url}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='underline hover:text-[#3338a0]'
+                >
+                  Visit website
+                </a>
+              </span>
             </div>
           </div>
           <div className='right Column md:col-span-2 md:border-l md:border-white md:pl-8'>
