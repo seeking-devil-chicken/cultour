@@ -135,6 +135,7 @@ export default function App() {
                 </p>
                 <div className='pathWrapper grid grid-cols-1 md:grid-cols-2 gap-8 m-5'>
                   <div
+                    data-testid='discoverPath'
                     className='discoverPath relative aspect-[16/9] overflow-hidden object-cover object-center group rounded-xl'
                     onClick={() => navigate('/discover')}
                   >
@@ -153,6 +154,7 @@ export default function App() {
                     </div>
                   </div>
                   <div
+                    data-testid='eventsPath'
                     className='eventsPath relative aspect-[16/9] overflow-hidden object-cover object-center group rounded-xl'
                     onClick={() => navigate('/events')}
                   >

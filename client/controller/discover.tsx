@@ -175,7 +175,9 @@ export default function Discover({ allData, newPostData }: DiscoverProps) {
   return (
     <>
       <div className='actionItems flex justify-center flex-col items-center p-3'>
-        <header>Post your own!</header>
+        <header>
+          <h1>Post your own!</h1>
+        </header>
         {allData && <Posts countries={allData} />}
         <label className='countries'>Filter posts by country</label>
         <select
