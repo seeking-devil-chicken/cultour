@@ -1,3 +1,4 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
@@ -12,6 +13,9 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: './client/src/setupTests.ts',
-    include: ['**/*.{test,spec}.{js,ts,jsx,tsx}'],
+
+    // Change this line:
+    // The default was finding ALL test files
+    include: ['__tests__/**/*.test.{js,ts,jsx,tsx}'],
   },
 });

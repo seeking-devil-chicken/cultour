@@ -1,6 +1,9 @@
 import { Pool } from 'pg';
 
-const PG_URI = process.env.PG_URI;
+const PG_URI =
+  process.env.NODE_ENV === 'test'
+    ? process.env.TEST_PG_URI
+    : process.env.PG_URI;
 
 const pool = new Pool({
   connectionString: PG_URI,

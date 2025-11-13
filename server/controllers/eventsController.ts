@@ -73,6 +73,8 @@ export default {
 
       baseQuery += ' ORDER BY event_datetime ASC LIMIT 50';
 
+      console.log(baseQuery);
+
       const result = await database.query(baseQuery, params);
 
       // Set random images for all events
