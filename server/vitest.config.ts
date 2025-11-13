@@ -1,15 +1,15 @@
+// server/vitest.config.ts
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    env: {
-      // this env variable ensures that the tests never alter our "real" database, only our test database
-      NODE_ENV: 'test',
-      // providing a different port for the server during testing ensures that the tests remain reliable even if the server is currently running in development
-      PORT: '3001',
-    },
-    setupFiles: './__tests__/setup.ts',
-    // set the environment to jsdom here
-    environment: 'jsdom',
+    // Set environment to 'node' for backend testing
+    environment: 'node',
+
+    // Optional: Define setup file for db mocks or globals
+    // setupFiles: './__tests__/setup.ts',
+
+    // Optional: Run tests serially if they access the same test db
+    // singleThread: true,
   },
 });
