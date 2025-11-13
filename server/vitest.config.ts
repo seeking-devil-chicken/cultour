@@ -1,4 +1,3 @@
-// server/vitest.config.ts
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
@@ -6,10 +5,12 @@ export default defineConfig({
     // Set environment to 'node' for backend testing
     environment: 'node',
 
-    // Optional: Define setup file for db mocks or globals
-    // setupFiles: './__tests__/setup.ts',
+    maxWorkers: 1,
 
-    // Optional: Run tests serially if they access the same test db
-    // singleThread: true,
+    fileParallelism: false,
+
+    maxConcurrency: 1,
+
+    isolate: false,
   },
 });

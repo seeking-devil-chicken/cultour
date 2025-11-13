@@ -11,7 +11,7 @@ describe('GET /countries', () => {
     expect(res.statusCode).toBe(200);
 
     // Check if the response is an array (as expected from querycontroller)
-    console.log(res.body);
+    // console.log(res.body);
     expect(res.body).toBeInstanceOf(Array);
   });
 });
