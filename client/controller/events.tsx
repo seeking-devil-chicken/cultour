@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { JSX } from 'react';
 import { useNavigate, NavigateFunction } from 'react-router-dom';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 interface Event {
   id: number;
@@ -30,8 +31,13 @@ function filterByDateAndCategory(
     return categories.map(() => []);
   }
   const result: Event[][] = categories.map((category) => {
+    const today = Date.now();
     return allData
-      .filter((event) => event.category === category)
+      .filter(
+        (event) =>
+          event.category === category &&
+          new Date(event.event_datetime).getTime() >= today
+      )
       .sort(
         (a, b) =>
           new Date(a.event_datetime).getTime() -
@@ -54,6 +60,25 @@ function getCountries(allData: Event[]): string[] {
   const countries = allData.map((data) => data.country);
   const uniqueCountries = new Set([...countries]);
   return Array.from(uniqueCountries);
+}
+
+// formats dates to: "November 12, 2025 | 6:30 PM"
+function formatEventDateTime(isoString: string): string {
+  const date = new Date(isoString);
+
+  const datePart = date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+
+  const timePart = date.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  });
+
+  return `${datePart} | ${timePart}`;
 }
 
 export default function Events({ allEvents }: EventsProps) {
@@ -92,26 +117,34 @@ export default function Events({ allEvents }: EventsProps) {
       {categories.map((category, index) => {
         return (
           <>
-            <div className='galleryHeader text-5xl py-5'>
-              <h2>{category}</h2>
+            <div className='galleryHeader text-7xl pt-12 py-5'>
+              <h2>{category.toUpperCase()}</h2>
             </div>
-            <div className='galleryPosts grid grid-cols-3 gap-7'>
+            <div className='galleryPosts relative flex flex-nowrap justify-start items-center overflow-x-auto gap-4 '>
+              <IoIosArrowBack className='absolute text-3xl hover:cursor-pointer left-2 top-1/2 -translate-y-1/2 z-20' />
               {country === 'default'
                 ? filteredByDateAndCategory[index].map((item, i) => {
                     return (
                       <div
-                        className='card relative rounded-xl overflow-hidden cursor-pointer group'
+                        className='card relative snap-start rounded-xl shadow-[0px_0px_7px_rgba(0,0,0,0.25)] overflow-hidden cursor-pointer group shrink-0 w-[400px] h-[300px]'
                         onClick={(e) => navigate(`/events/${item.id}`)}
                         key={i}
                       >
-                        <div className='card-text absolute inset-0 flex justify-center items-center text-[#f7f7f7] text-3xl z-10'>
-                          {item.event_title}
+                        <div className='absolute inset-0 flex justify-start items-center pl-7 pr-7 z-10'>
+                          <div className='flex flex-col items-start text-left gap-1 px-3'>
+                            <div className='card-date text-[#f7f7f7] text-1xl z-10'>
+                              {formatEventDateTime(item.event_datetime)}
+                            </div>
+                            <div className='card-text text-[#f7f7f7] text-1xl z-10'>
+                              {item.event_title}
+                            </div>
+                          </div>
                         </div>
-                        <div className='absolute inset-0 bg-black/50 group-hover:bg-black/10 transition-colors duration-300'></div>
+                        <div className='absolute inset-0 bg-black/60 group-hover:bg-black/30 transition-colors duration-300'></div>
                         <img
                           src={item.image}
                           alt={item.event_title}
-                          className='w-full h-full'
+                          className='w-full h-full object-cover object-center block'
                         />
                       </div>
                     );
@@ -119,22 +152,30 @@ export default function Events({ allEvents }: EventsProps) {
                 : filteredByDateCategoryCountry[index].map((item, i) => {
                     return (
                       <div
-                        className='card relative rounded-xl overflow-hidden cursor-pointer group'
+                        className='card relative snap-start rounded-xl shadow-[0px_0px_7px_rgba(0,0,0,0.25)] overflow-hidden cursor-pointer group shrink-0 w-[400px] h-[300px]'
                         onClick={(e) => navigate(`/events/${item.id}`)}
                         key={i}
                       >
-                        <div className='card-text absolute inset-0 flex justify-center items-center text-[#f7f7f7] text-3xl z-10'>
-                          {item.event_title}
+                        <div className='absolute inset-0 flex justify-start items-center pl-7 pr-7 z-10'>
+                          <div className='flex flex-col items-start text-left gap-1 px-3'>
+                            <div className='card-date text-[#f7f7f7] text-1xl z-10'>
+                              {formatEventDateTime(item.event_datetime)}
+                            </div>
+                            <div className='card-text text-[#f7f7f7] text-1xl z-10'>
+                              {item.event_title}
+                            </div>
+                          </div>
                         </div>
-                        <div className='absolute inset-0 bg-black/50 group-hover:bg-black/10 transition-colors duration-300'></div>
+                        <div className='absolute inset-0 bg-black/60 group-hover:bg-black/30 transition-colors duration-300'></div>
                         <img
                           src={item.image}
                           alt={item.event_title}
-                          className='w-full h-full'
+                          className='w-full h-full object-cover object-center block'
                         />
                       </div>
                     );
                   })}
+              <IoIosArrowForward className='absolute text-3xl hover:cursor-pointer right-2 top-1/2 -translate-y-1/2 z-10' />
             </div>
           </>
         );

@@ -105,7 +105,7 @@ export default function App() {
 
   //router structure for the whole app
   return (
-    <div className='max-w-[800px] mx-auto mb-5'>
+    <div className='max-w-[1200px] mx-auto mb-5'>
       <header className='homePage flex justify-center flex-col items-center text-3xl'>
         <Link to='/'>
           <img

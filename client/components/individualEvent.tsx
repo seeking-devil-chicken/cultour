@@ -28,6 +28,23 @@ interface EventData {
   relatedPosts: RelatedPost[];
 }
 
+function formatEventDateTime(isoString: string): string {
+  const date = new Date(isoString);
+
+  const datePart = date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+
+  const timePart = date.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  });
+
+  return `${datePart} | ${timePart}`;
+}
 export default function IndividualEvent() {
   const { id } = useParams();
   const [eventData, setEventData] = useState<EventData | null>(null);
@@ -78,13 +95,15 @@ export default function IndividualEvent() {
   return (
     <>
       <header className='text-5xl py-5'>{eventDetails.event_title}</header>
+      {/* <div className='absolute inset-0 bg-black/60 group-hover:bg-black/30 transition-colors duration-300'></div> */}
       <img
-        className='my-5'
         src={eventDetails.image}
         width='500px'
         height='300px'
+        className='w-full h-full object-cover object-center block'
       ></img>
-      <p>Event Date & Time: {eventDetails.event_datetime}</p>
+
+      <p>{formatEventDateTime(eventDetails.event_datetime)}</p>
       <p>Event Address: {eventDetails.address}</p>
       <p>Ticket: {eventDetails.ticket_price}</p>
       <p>{eventDetails.description}</p>
