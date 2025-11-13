@@ -179,6 +179,7 @@ export default function Events({ allEvents }: EventsProps) {
               {visibleEvents.map((item, i) => {
                 return (
                   <div
+                    data-testid='eventCard'
                     className='card relative snap-start rounded-xl shadow-[0px_0px_7px_rgba(0,0,0,0.25)] overflow-hidden cursor-pointer group shrink-0 w-[400px] h-[300px]'
                     onClick={(e) => navigate(`/events/${item.id}`)}
                     key={i}
@@ -215,7 +216,7 @@ export default function Events({ allEvents }: EventsProps) {
   return (
     <>
       <div className='actionItems flex flex-col items-center p-3 border-t border-b border-[#c59560] '>
-        <label className='countries'>Filter posts by country</label>
+        <label className='countries'>Filter events by country</label>
         <select
           className='countryFilter'
           id='countryFilter'
