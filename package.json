@@ -7,7 +7,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:server": "vitest --config ./server/vitest.config.ts",
-    "test:client": "vitest --config ./client/vite.config.ts"
+    "test:client": "vitest --config ./vite.config.js"
   },
   "type": "module",
   "dependencies": {
